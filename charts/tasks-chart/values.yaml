@@ -1,0 +1,25 @@
+namespace: tasks-app
+
+postgres:
+  image: postgres:15
+  user: tasks_user
+  password: change_me
+  db: tasksdb
+  storage: {}
+  service:
+    port: 5432
+
+backend:
+  image: backend:local
+  replicas: 1
+  service:
+    type: NodePort
+    port: 8000
+    nodePort: 30080
+
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilization: 70
+
